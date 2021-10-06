@@ -17,7 +17,7 @@
 		- **Width** multiplier $\alpha$ where $\alpha \in (0, 1]$.
 			- The number of both input and output channels scales by $\alpha$.
 		- **Resolution** multiplier $\rho$ where $\rho \in (0, 1]$.
-			- The input image and the internal representation of every layer is reduced by $\rho$.
+			- The input image and the internal representation of every layer are reduced by $\rho$.
 	- #### Usage
 		- [[Object Detection]]
 			- Under both [[Faster-RCNN]] and [[Single Shot MultiBox Detector, SSD]].
@@ -35,3 +35,5 @@
 - ## Ideas
 	- What if we used $3 \times 3$ depthwise convolutions instead of $1 \times 1$?
 		- Or probably $k \times k$ with a stride of $k$ for small $k$?
+---
+![[1704.04861v1.pdf]]

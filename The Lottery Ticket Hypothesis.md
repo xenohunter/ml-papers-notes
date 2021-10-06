@@ -26,3 +26,5 @@
 	- May there be a kind of a "winning ticket" [[Subgraph]] in the [[Graph]] of all scientific papers? Meaning: a [[Subset]] of the pieces of [[Research]] that are most helpful for studying.
 - ## Ideas
 	- [[Pruning]] based on how much each weight after an iteration of training differs from itself before that iteration. That is, we may try to mask out the weights that change too slowly _locally_.
+---
+![[1803.03635.pdf]]
