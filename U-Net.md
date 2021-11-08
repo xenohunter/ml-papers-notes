@@ -1,0 +1,25 @@
+- #paper/to-read ~ [[2015 CE]] ~ [[Convolutional Neural Network, CNN]], [[Semantic Segmentation]]
+	- **U-Net: Convolutional Networks for Biomedical Image Segmentation**
+	- https://arxiv.org/abs/1505.04597
+	- http://lmb.informatik.uni-freiburg.de/people/ronneber/u-net
+	- Mentioned papers:
+		- [[Fully Convolutional Networks]]
+		- [[Very Deep Convolutional Networks]]
+		- [[Hypercolumns for Object Segmentation]]
+		- [[Cascaded Hierarchical Models]]
+		- [[Delving Deep into Rectifiers]]
+- ## Summary
+	- The **architecture** consists of the contracting path used to extract locally global context and the expanding path used to mix that context information with the local features.
+		![[u-net-architecture.png]]
+		- Features extracted on the contracting path are cropped before being mixed with local features due to the fixed-size reduction in resolution (convolutions have no indent).
+			- In the upsampling part, the model has many feature channels which allows it to propagate information efficiently to higher resolution layers.
+			- Regions adjacent to the edge of an image are mirrored to account for the crop.
+				- Large pictures are processed in tiles.
+		- The output layer is a $1 \times 1$ convolution used to classify pixels.
+	- **[[Training Process]]** involves [[Data Augmentation]], primarily by applying [[Elastic Deformations]].
+	- A **weighted [[Loss Function|Loss]]** is used to make sure that the network learns to rigorously distinguish touching objects of the same class (e.g. cells in microscopical [[Medicine|Medical]] images): $$L = \sum_{\mathbf{x} \in \it \Omega} w(\mathbf{x}) \log({\rm softmax}_{{\rm label}(\mathbf{x})}(\mathbf{x}))$$
+		- Here, $w$ is the loss weight for the feature map in a given pixel position $\mathbf x \in \it \Omega$.
+		- Weights for the loss are pre-computed using [[Morphological Image Processing]]: $$w(\mathbf x) = w_{c}(\mathbf x) + w_0 \cdot \exp \left( -\frac{(d_1(\mathbf x) + d_2(\mathbf x))^2}{2 \sigma^2} \right)$$
+			- Here, $w_c$ is the weight map to balance the class frequencies, $d_1$ and $d_2$ denote the distances to the borders of the two nearest cells, $w_0 = 10$, and $\sigma = 5$.
+---
+![[u-net.pdf]]
