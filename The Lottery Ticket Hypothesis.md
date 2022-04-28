@@ -1,9 +1,11 @@
-- #paper
+- #paper/read ~ [[2018 CE]]
+	- **The Lottery Ticket Hypothesis: Finding Sparse, Trainable Neural Networks**
 	- https://arxiv.org/abs/1803.03635
 - The technique described in this paper may be useful to create the [[Speech-to-API Framework]].
 - ## Summary
 	- The general idea is to find efficiently trainable subnetworks — _winning tickets_ — in a [[Neural Network]] by [[Pruning]] it during the [[Training Process]].
-		- Evidence shows that the _winning ticket_ weights change by a larger amount than the rest of the network.
+		- Evidence shows that the _winning ticket_ weights are those that the network doesn't try to drive closer to zero.
+			- This means that during the pruning step, we prune the smallest-magnitude weights.
 		- Since a _winning ticket_ learns faster than the rest of the network, we remove a percentage of the weights with the lowest magnitude. Pruning happens iteratively.
 			- The initialization of _winning tickets_ is crucial — if we keep the mask of a _winning ticket_ (to have its structure) but reinitialize all the weights and prune outside of the mask, the _winning ticket_ will learn progressively slower.
 	- Hence **the Lottery Ticket Hypothesis**:
@@ -16,7 +18,7 @@
 	- It is possible to employ [[One-shot]] pruning to make the process more computationally efficient.
 	- #### Drawbacks
 		- The structure of _winning tickets_ may be affected by training data.
-		- The process of finding _winning tickets_ is computationally costly — it may be hard to apply to the models with an excessively vast number of parameters.
+		- The process of finding _winning tickets_ is [[Compute|Computationally]] costly — it may be hard to apply to the models with an excessively vast number of parameters.
 	- #### Negative hypothesis testing
 		- [[Random]] reinitialization or sparsity don't show much improvement in the model performance.
 		- Pruning before training impairs the performance of the network.
@@ -27,4 +29,4 @@
 - ## Ideas
 	- [[Pruning]] based on how much each weight after an iteration of training differs from itself before that iteration. That is, we may try to mask out the weights that change too slowly _locally_.
 ---
-![[1803.03635.pdf]]
+![[the-lottery-ticket-hypothesis.pdf]]
